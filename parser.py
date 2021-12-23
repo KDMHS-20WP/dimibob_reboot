@@ -6,7 +6,7 @@ import json
 def check_date(date):
   today = datetime.date.today()
   today -= datetime.timedelta(days=today.weekday())
-    
+  
   found_date = datetime.date(1, 1, 1)
 
   for i in range(7):
@@ -14,7 +14,7 @@ def check_date(date):
       found_date = today
     today += datetime.timedelta(days=1)
   return found_date
-    
+  
 req = requests.get('https://www.dimigo.hs.kr/index.php?mid=school_cafeteria&page=1')
 html = req.text
 soup = BeautifulSoup(html, 'html.parser')
