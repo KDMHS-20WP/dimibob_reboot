@@ -46,13 +46,13 @@ for bob_article in bob_articles:
       jungsik = bob_menu.partition('*중식 : ')[2].partition('*석식 : ')[0].strip() #.replace('/', '\n')
       soksik = bob_menu.partition('*석식 : ')[2].strip() #.replace('/', '\n')
 
-      
       data = {
         'date' : found_date.strftime("%Y-%m-%d"),
         'josik' : josik,
         'jungsik' : jungsik,
         'soksik' : soksik
       }
+
       result_data['meals'].append(data)
 
 today = datetime.date.today()
