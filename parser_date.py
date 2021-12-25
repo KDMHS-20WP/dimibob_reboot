@@ -62,5 +62,5 @@ for bob_article in bob_articles:
 today = target_date
 today -= datetime.timedelta(days=today.weekday())
 with open('datas/'+ today.strftime('%m-%d') + '.json', 'w', encoding='utf-8') as f:
-  res = json.dump(result_data, f, ensure_ascii=False, indent='\t')
+  json.dump(result_data, f, ensure_ascii=False, indent='\t')
   print('OK')
