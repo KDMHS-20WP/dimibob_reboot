@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 api = Api(app)
 
-
+@api.route('/bob')
 class Bob(Resource):
 
     def get(self):
@@ -26,7 +26,7 @@ class Bob(Resource):
             res = make_response(result)
             return res
 
-
+@api.route('/bob/<date>')
 class Bob_date(Resource):
 
     def get(self, date):
