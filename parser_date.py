@@ -14,7 +14,7 @@ def check_date(date):
   found_date = datetime.date(1, 1, 1)
 
   for i in range(7):
-    if date.find(today.strftime("%m월 %d일")) != -1:
+    if date.find(str(today.month) + "월 " + str(today.day) + "일") != -1:
       found_date = today
     today += datetime.timedelta(days=1)
   return found_date

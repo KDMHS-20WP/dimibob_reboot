@@ -6,15 +6,15 @@ import json
 def check_date(date):
   today = datetime.date.today()
   today -= datetime.timedelta(days=today.weekday())
-  
+    
   found_date = datetime.date(1, 1, 1)
 
   for i in range(7):
-    if date.find(today.strftime("%m월 %d일")) != -1:
+    if date.find(str(today.month) + "월 " + str(today.day) + "일") != -1:
       found_date = today
     today += datetime.timedelta(days=1)
   return found_date
-  
+    
 req = requests.get('https://www.dimigo.hs.kr/index.php?mid=school_cafeteria&page=1')
 html = req.text
 soup = BeautifulSoup(html, 'html.parser')
@@ -46,17 +46,17 @@ for bob_article in bob_articles:
       jungsik = bob_menu.partition('*중식 : ')[2].partition('*석식 : ')[0].strip() #.replace('/', '\n')
       soksik = bob_menu.partition('*석식 : ')[2].strip() #.replace('/', '\n')
 
+      
       data = {
         'date' : found_date.strftime("%Y-%m-%d"),
         'josik' : josik,
         'jungsik' : jungsik,
         'soksik' : soksik
       }
-
       result_data['meals'].append(data)
 
 today = datetime.date.today()
 today -= datetime.timedelta(days=today.weekday())
 with open('datas/'+ today.strftime('%m-%d') + '.json', 'w', encoding='utf-8') as f:
-  json.dump(result_data, f, ensure_ascii=False, indent='\t')
+  res = json.dump(result_data, f, ensure_ascii=False, indent='\t')
   print('OK')
