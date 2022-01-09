@@ -12,12 +12,12 @@ api = Api(app)
 
 
 @api.route("/bob")
-class Bob(Resource):
+class Bob(Resossurce):
     def get(self):
         today = datetime.date.today()
         today -= datetime.timedelta(days=today.weekday())
         if not os.path.exists("datas/" + today.strftime("%m-%d") + ".json"):
-            exec(open("parser.py", encoding="utf-8").read())
+            subprocess.call(["python", "parser.py", today.strftime("%y-%m-%d")])
         with open(
             "datas/" + today.strftime("%m-%d") + ".json", "r", encoding="utf-8"
         ) as f:
