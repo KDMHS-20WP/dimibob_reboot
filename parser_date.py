@@ -35,8 +35,8 @@ for bob_article in bob_articles:
     bob_link = bob_article.find("td", {"class": "title"}).find("a").get("href")
 
     if bob_title.find("식단") != -1:
-        found_date = check_date(bob_title)
-        if found_date.year != 1:
+        fd = check_date(bob_title)
+        if fd.year != 1:
             bob_req = requests.get(bob_link)
             bob_html = bob_req.text
             bob_soup = BeautifulSoup(bob_html, "html.parser")
@@ -51,7 +51,7 @@ for bob_article in bob_articles:
             soksik = bob_menu.partition("*석식 : ")[2].strip()
 
             data = {
-                "date": found_date.strftime("%Y-%m-%d"),
+                "date": fd.strftime("%Y-%m-%d"),
                 "josik": josik,
                 "jungsik": jungsik,
                 "soksik": soksik,
