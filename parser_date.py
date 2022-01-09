@@ -58,8 +58,8 @@ for bob_article in bob_articles:
             }
             result_data["meals"].append(data)
 
-today = target_date
-today -= datetime.timedelta(days=today.weekday())
-with open("datas/" + today.strftime("%m-%d") + ".json", "w", encoding="utf-8") as f:
+td = target_date
+td -= datetime.timedelta(days=td.weekday())
+with open("datas/" + td.strftime("%m-%d") + ".json", "w", encoding="utf-8") as f:
     json.dump(result_data, f, ensure_ascii=False, indent="\t")
     print("OK")
