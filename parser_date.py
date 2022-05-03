@@ -25,7 +25,7 @@ req = requests.get("https://www.dimigo.hs.kr/index.php?mid=school_cafeteria&page
 html = req.text
 soup = BeautifulSoup(html, "html.parser")
 
-bob_articles = soup.select("#dimigo_post_cell_2 > tr")
+bob_articles = soup.select("#dimigo_post_cell_1 > tr")
 
 result_data = {"meals": []}
 
