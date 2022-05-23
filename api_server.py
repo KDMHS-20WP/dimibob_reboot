@@ -16,8 +16,10 @@ class Bob(Resource):
     def get(self):
         today = datetime.date.today()
         today -= datetime.timedelta(days=today.weekday())
+       
         if not os.path.exists("datas/" + today.strftime("%m-%d") + ".json"):
-            subprocess.call(["python", "parser.py", today.strftime("%y-%m-%d")])
+            subprocess.call(["python", "parser_date.py", today.strftime("%Y%m%d")])
+            print('called subprocess')
         with open(
             "datas/" + today.strftime("%m-%d") + ".json", "r", encoding="utf-8"
         ) as f:

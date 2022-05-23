@@ -7,11 +7,9 @@ import sys
 
 target_date = date_parse(sys.argv[1])
 
-
 def check_date(date):
     today = target_date
     today -= datetime.timedelta(days=today.weekday())
-
     found_date = datetime.date(1, 1, 1)
 
     for i in range(7):
