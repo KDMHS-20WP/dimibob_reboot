@@ -5,6 +5,7 @@ import subprocess
 import datetime
 import os
 import json
+from pytz import timezone
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
@@ -14,7 +15,7 @@ api = Api(app)
 @api.route("/bob")
 class Bob(Resource):
     def get(self):
-        today = datetime.date.today()
+        today = datetime.date.today(timezone('Asia/Seoul'))
         today -= datetime.timedelta(days=today.weekday())
        
         if not os.path.exists("datas/" + today.strftime("%m-%d") + ".json"):
