@@ -7,13 +7,16 @@ import sys
 
 target_date = date_parse(sys.argv[1])
 
-def check_date(date):
+def check_date(date: str):
     today = target_date
     today -= datetime.timedelta(days=today.weekday())
     found_date = datetime.date(1, 1, 1)
 
     for i in range(7):
-        if date.find(str(today.month) + "월 " + str(today.day) + "일") != -1:
+
+        date.replace(" ", "")
+
+        if date.find(str(today.month) + "월" + str(today.day) + "일") != -1:
             found_date = today
         today += datetime.timedelta(days=1)
     return found_date
@@ -44,9 +47,10 @@ for bob_article in bob_articles:
             )[0]
             bob_menu = bob_menu.text.replace("\n", "")
 
-            josik = bob_menu.partition("*조식 : ")[2].partition("*중식 : ")[0].strip()
-            jungsik = bob_menu.partition("*중식 : ")[2].partition("*석식 : ")[0].strip()
-            soksik = bob_menu.partition("*석식 : ")[2].strip()
+            bob_menu.replace(" ", "")
+            josik = bob_menu.partition("*조식:")[2].partition("*중식:")[0].strip()
+            jungsik = bob_menu.partition("*중식:")[2].partition("*석식:")[0].strip()
+            soksik = bob_menu.partition("*석식:")[2].strip()
 
             data = {
                 "date": fd.strftime("%Y-%m-%d"),
