@@ -8,18 +8,30 @@ import sys
 target_date = date_parse(sys.argv[1])
 
 def check_date(date: str):
-    today = target_date
-    today -= datetime.timedelta(days=today.weekday())
-    found_date = datetime.date(1, 1, 1)
+    # 6월 17일 식단입니다.
+    # 6월17일 식단입니다.
+    # 6월 17일 식단입니다
 
-    for i in range(7):
+    date = date.replace(" ", "")
+    date = date.split("식단")[0]
+    date = date.replace("월", "-")
+    date = date.replace("일", "")
 
-        date.replace(" ", "")
+    td_first = target_date
+    td_first -= datetime.timedelta(days=td_first.weekday())
 
-        if date.find(str(today.month) + "월" + str(today.day) + "일") != -1:
-            found_date = today
-        today += datetime.timedelta(days=1)
-    return found_date
+    td_last = td_first + datetime.timedelta(days=6)
+
+    try:
+        fd = date_parse(date)
+        # check target date is in range
+        if fd < td_first or fd > td_last:
+            fd = datetime.datetime(1, 1, 1)
+    except:
+        fd = datetime.datetime(1, 1, 1)
+    
+
+    return fd
 
 
 req = requests.get("https://www.dimigo.hs.kr/index.php?mid=school_cafeteria&page=1")
@@ -27,6 +39,7 @@ html = req.text
 soup = BeautifulSoup(html, "html.parser")
 
 bob_articles = soup.select("#dimigo_post_cell_1 > tr")
+
 
 result_data = {"meals": []}
 
@@ -36,6 +49,7 @@ for bob_article in bob_articles:
     bob_link = bob_article.find("td", {"class": "title"}).find("a").get("href")
 
     if bob_title.find("식단") != -1:
+        print(bob_title)
         fd = check_date(bob_title)
         if fd.year != 1:
             bob_req = requests.get(bob_link)
